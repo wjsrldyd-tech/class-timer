@@ -7,11 +7,8 @@ let intervalId = null;
 // DOM 요소
 const timeDisplay = document.getElementById('timeDisplay');
 const minValue = document.getElementById('minValue');
-const secValue = document.getElementById('secValue');
 const minDec = document.getElementById('minDec');
 const minInc = document.getElementById('minInc');
-const secDec = document.getElementById('secDec');
-const secInc = document.getElementById('secInc');
 const resetBtn = document.getElementById('resetBtn');
 const startPauseBtn = document.getElementById('startPauseBtn');
 
@@ -25,10 +22,8 @@ function formatTime(seconds) {
 // 화면 업데이트
 function updateDisplay() {
   const mins = Math.floor(remainingSeconds / 60);
-  const secs = remainingSeconds % 60;
   
   minValue.textContent = mins;
-  secValue.textContent = secs;
   timeDisplay.textContent = formatTime(remainingSeconds);
   
   // 10초 이하일 때 경고 색상
@@ -49,22 +44,8 @@ function adjustMinutes(delta) {
   
   const currentMins = parseInt(minValue.textContent) || 0;
   const newMins = Math.max(0, Math.min(99, currentMins + delta));
-  const currentSecs = parseInt(secValue.textContent) || 0;
   
-  totalSeconds = newMins * 60 + currentSecs;
-  remainingSeconds = totalSeconds;
-  updateDisplay();
-}
-
-// 초 증감
-function adjustSeconds(delta) {
-  if (isRunning) return;
-  
-  const currentMins = parseInt(minValue.textContent) || 0;
-  const currentSecs = parseInt(secValue.textContent) || 0;
-  const newSecs = Math.max(0, Math.min(59, currentSecs + delta));
-  
-  totalSeconds = currentMins * 60 + newSecs;
+  totalSeconds = newMins * 60;
   remainingSeconds = totalSeconds;
   updateDisplay();
 }
@@ -121,8 +102,6 @@ function resetTimer() {
 function enableControls(enabled) {
   minDec.disabled = !enabled;
   minInc.disabled = !enabled;
-  secDec.disabled = !enabled;
-  secInc.disabled = !enabled;
 }
 
 // 알림 표시
@@ -175,8 +154,6 @@ function playBeepSound() {
 // 이벤트 리스너
 minDec.addEventListener('click', () => adjustMinutes(-1));
 minInc.addEventListener('click', () => adjustMinutes(1));
-secDec.addEventListener('click', () => adjustSeconds(-1));
-secInc.addEventListener('click', () => adjustSeconds(1));
 resetBtn.addEventListener('click', resetTimer);
 startPauseBtn.addEventListener('click', toggleTimer);
 
