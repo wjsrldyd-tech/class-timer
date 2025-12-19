@@ -13,22 +13,36 @@
       <div class="time" id="timeDisplay">00:00</div>
     </div>
 
-    <!-- 시간 설정 영역 -->
-    <div class="time-controls">
-      <div class="control-group">
-        <label>분</label>
-        <div class="button-group">
-          <button class="btn btn-minus" id="minDec" type="button">-</button>
-          <span class="value" id="minValue">0</span>
-          <button class="btn btn-plus" id="minInc" type="button">+</button>
-        </div>
-      </div>
-    </div>
-
     <!-- 컨트롤 버튼 -->
     <div class="action-buttons">
+      <button class="btn btn-settings" id="settingsBtn" type="button">설정</button>
       <button class="btn btn-reset" id="resetBtn" type="button">리셋</button>
       <button class="btn btn-primary" id="startPauseBtn" type="button">시작</button>
+    </div>
+  </div>
+
+  <!-- 설정 모달 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>시간 설정</h2>
+        <button class="btn-close" id="closeModal" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="time-controls">
+          <div class="control-group">
+            <label>분</label>
+            <div class="button-group">
+              <button class="btn btn-minus" id="minDec" type="button">-</button>
+              <span class="value" id="minValue">0</span>
+              <button class="btn btn-plus" id="minInc" type="button">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="applySettings" type="button">적용</button>
+      </div>
     </div>
   </div>
 

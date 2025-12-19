@@ -11,6 +11,10 @@ const minDec = document.getElementById('minDec');
 const minInc = document.getElementById('minInc');
 const resetBtn = document.getElementById('resetBtn');
 const startPauseBtn = document.getElementById('startPauseBtn');
+const settingsBtn = document.getElementById('settingsBtn');
+const modalOverlay = document.getElementById('modalOverlay');
+const closeModal = document.getElementById('closeModal');
+const applySettings = document.getElementById('applySettings');
 
 // 시간 포맷 (MM:SS)
 function formatTime(seconds) {
@@ -23,7 +27,11 @@ function formatTime(seconds) {
 function updateDisplay() {
   const mins = Math.floor(remainingSeconds / 60);
   
-  minValue.textContent = mins;
+  // 모달이 열려있을 때만 모달의 minValue 업데이트
+  if (modalOverlay.classList.contains('show')) {
+    minValue.textContent = mins;
+  }
+  
   timeDisplay.textContent = formatTime(remainingSeconds);
   
   // 10초 이하일 때 경고 색상
@@ -38,16 +46,36 @@ function updateDisplay() {
   }
 }
 
-// 분 증감
+// 분 증감 (모달 내에서 사용)
 function adjustMinutes(delta) {
-  if (isRunning) return;
-  
   const currentMins = parseInt(minValue.textContent) || 0;
   const newMins = Math.max(0, Math.min(99, currentMins + delta));
+  minValue.textContent = newMins;
+}
+
+// 모달 열기
+function openModal() {
+  if (isRunning) return; // 실행 중에는 모달을 열 수 없음
   
-  totalSeconds = newMins * 60;
+  // 현재 설정된 분 값을 모달에 표시
+  const currentMins = Math.floor(totalSeconds / 60);
+  minValue.textContent = currentMins;
+  
+  modalOverlay.classList.add('show');
+}
+
+// 모달 닫기
+function closeModalWindow() {
+  modalOverlay.classList.remove('show');
+}
+
+// 설정 적용
+function applyTimerSettings() {
+  const mins = parseInt(minValue.textContent) || 0;
+  totalSeconds = mins * 60;
   remainingSeconds = totalSeconds;
   updateDisplay();
+  closeModalWindow();
 }
 
 // 타이머 시작/일시정지
@@ -60,7 +88,6 @@ function toggleTimer() {
     isRunning = false;
     startPauseBtn.textContent = '시작';
     startPauseBtn.classList.remove('running');
-    enableControls(true);
   } else {
     // 시작
     if (remainingSeconds === 0) {
@@ -69,7 +96,6 @@ function toggleTimer() {
     isRunning = true;
     startPauseBtn.textContent = '정지';
     startPauseBtn.classList.add('running');
-    enableControls(false);
     
     intervalId = setInterval(() => {
       remainingSeconds--;
@@ -80,7 +106,6 @@ function toggleTimer() {
         isRunning = false;
         startPauseBtn.textContent = '시작';
         startPauseBtn.classList.remove('running');
-        enableControls(true);
         showNotification();
       }
     }, 1000);
@@ -94,14 +119,12 @@ function resetTimer() {
   remainingSeconds = totalSeconds;
   startPauseBtn.textContent = '시작';
   startPauseBtn.classList.remove('running');
-  enableControls(true);
   updateDisplay();
 }
 
-// 컨트롤 활성화/비활성화
+// 컨트롤 활성화/비활성화 (더 이상 사용하지 않음)
 function enableControls(enabled) {
-  minDec.disabled = !enabled;
-  minInc.disabled = !enabled;
+  // 모달 방식으로 변경되어 필요 없음
 }
 
 // 알림 표시
@@ -152,6 +175,14 @@ function playBeepSound() {
 }
 
 // 이벤트 리스너
+settingsBtn.addEventListener('click', openModal);
+closeModal.addEventListener('click', closeModalWindow);
+applySettings.addEventListener('click', applyTimerSettings);
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) {
+    closeModalWindow();
+  }
+});
 minDec.addEventListener('click', () => adjustMinutes(-1));
 minInc.addEventListener('click', () => adjustMinutes(1));
 resetBtn.addEventListener('click', resetTimer);
