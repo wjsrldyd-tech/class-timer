@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수업 타이머</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 타이머 표시 영역 -->
+    <div class="timer-display">
+      <div class="time" id="timeDisplay">00:00</div>
+    </div>
+
+    <!-- 시간 설정 영역 -->
+    <div class="time-controls">
+      <div class="control-group">
+        <label>분</label>
+        <div class="button-group">
+          <button class="btn btn-minus" id="minDec" type="button">-</button>
+          <span class="value" id="minValue">0</span>
+          <button class="btn btn-plus" id="minInc" type="button">+</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>초</label>
+        <div class="button-group">
+          <button class="btn btn-minus" id="secDec" type="button">-</button>
+          <span class="value" id="secValue">0</span>
+          <button class="btn btn-plus" id="secInc" type="button">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 컨트롤 버튼 -->
+    <div class="action-buttons">
+      <button class="btn btn-reset" id="resetBtn" type="button">리셋</button>
+      <button class="btn btn-primary" id="startPauseBtn" type="button">시작</button>
+    </div>
+  </div>
+
+  <script src="timer.js"></script>
+</body>
+</html>

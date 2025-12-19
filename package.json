@@ -1,0 +1,39 @@
+{
+  "name": "class-timer",
+  "version": "1.0.0",
+  "description": "수업용 타이머",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build-win": "electron-builder --win"
+  },
+  "keywords": [
+    "timer",
+    "class",
+    "education"
+  ],
+  "author": "벧엘수학",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.bethelmath.class-timer",
+    "productName": "수업 타이머",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "portable": {
+      "artifactName": "수업타이머-${version}.exe"
+    }
+  }
+}
