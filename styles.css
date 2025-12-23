@@ -10,6 +10,7 @@ body {
   color: #ffffff;
   user-select: none;
   overflow: hidden;
+  -webkit-app-region: drag;
 }
 
 .container {
@@ -97,6 +98,7 @@ body {
   border-radius: 6px;
   transition: all 0.2s;
   outline: none;
+  -webkit-app-region: no-drag;
 }
 
 .btn:active {

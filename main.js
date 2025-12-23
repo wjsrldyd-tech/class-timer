@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow, ipcMain, Notification, Menu } = require('electron');
 const path = require('path');
 
 let mainWindow;
@@ -9,7 +9,7 @@ function createWindow() {
     height: 380,
     minWidth: 280,
     minHeight: 360,
-    frame: true,
+    frame: false,
     alwaysOnTop: true,
     resizable: true,
     webPreferences: {
@@ -27,6 +27,9 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  // 메뉴 바 제거
+  Menu.setApplicationMenu(null);
+  
   createWindow();
 
   app.on('activate', () => {
