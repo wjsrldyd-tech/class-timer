@@ -21,6 +21,7 @@
   "build": {
     "appId": "com.bethelmath.class-timer",
     "productName": "수업 타이머",
+    "icon": "icon.png",
     "directories": {
       "output": "dist"
     },
@@ -30,7 +31,8 @@
           "target": "portable",
           "arch": ["x64"]
         }
-      ]
+      ],
+      "icon": "icon.png"
     },
     "portable": {
       "artifactName": "수업타이머-${version}.exe"
